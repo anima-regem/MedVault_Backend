@@ -6,6 +6,7 @@ import google.generativeai as genai
 import logging
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
+# import speech_recognition as sr
 
 
 load_dotenv()
@@ -57,7 +58,29 @@ def chat():
     response = model2.generate_content("You are Bloom, a medical assistance chatbot that can give answer to any medical relaed question and not any other type of question;\n"+chat_message, stream=False)
     return response.text
 
-    
+# def convert_audio_to_text():
+#     # Check if the POST request contains a file with key 'audio'
+#     if 'audio' not in request.files:
+#         return jsonify({'error': 'No audio file provided'}), 400
+
+#     audio_file = request.files['audio']
+
+#     # Check if the file has a valid extension (e.g., WAV or MP3)
+#     if audio_file and audio_file.filename.lower().endswith(('.wav', '.mp3')):
+#         recognizer = sr.Recognizer()
+
+#         # Read the audio file using SpeechRecognition
+#         with sr.AudioFile(audio_file) as source:
+#             audio_data = recognizer.record(source)
+
+#         # Perform speech-to-text conversion
+#         text_result = recognizer.recognize_google(audio_data)
+
+#         return jsonify({'result': text_result})
+
+#     else:
+#         return jsonify({'error': 'Invalid audio file format'}), 400
+
 
 if __name__ == '__main__':
     app.run(debug=True)
